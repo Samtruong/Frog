@@ -103,14 +103,17 @@ struct part_table * partition (
         ret->part_vertex[p] = part_vertex + n;
     }
     // the last partition contains all un-partitioned vertices
+    int leftover = 0;
     for (i = 0; i < vertex_num; i++) {
         if (vertex_part[i] < 1) {
             vertex_part[i] = part_num;
             (*part_vertex_num)++;
             (*part_edge_num) += vertex_begin[i + 1] - vertex_begin[i];
             part_vertex[n++] = i;
+	    leftover++;
         }
     }
+    printf("Left over is: %d \n", leftover);
     return ret;
 }
 

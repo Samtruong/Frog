@@ -566,10 +566,10 @@ void bfs_experiments(const Graph * const g) {
     
     bfs_on_cpu(g->vertex_num, g->vertex_begin, g->edge_dest, value_cpu, SOURCE_VERTEX);
     //print_bfs_values(value_cpu, g->vertex_num);
-    /*
+    
     gpu_bfs_edge_loop(g, value_gpu, SOURCE_VERTEX);
     check_values(value_cpu, value_gpu, g->vertex_num);
-    */
+    
 	gpu_bfs_edge_part_loop(part, t, value_gpu, SOURCE_VERTEX);
     check_values(value_cpu, value_gpu, g->vertex_num);
     /*

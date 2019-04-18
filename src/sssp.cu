@@ -6,7 +6,7 @@
 
 #include "src/frog.cuh"
 
-#define SOURCE_VERTEX 3
+#define SOURCE_VERTEX 1071
 
 #define SSSP_INFINITE -1
 #define SSSP_NO_PATH -1
@@ -443,18 +443,18 @@ void sssp_experiments(const Graph * const g) {
     printf("\tTime\tTotal\tTips\n");
     sssp_on_cpu(g->vertex_num, g->vertex_begin, g->edge_dest, edge_weight,
                 SOURCE_VERTEX, value_cpu, path);
-/*
+
     gpu_sssp_edge_loop(g, edge_weight, SOURCE_VERTEX, value_gpu, path);
     check_values(value_cpu, value_gpu, g->vertex_num);
-    */
+    
 	gpu_sssp_edge_part_loop(part, t, part_weight, SOURCE_VERTEX, value_gpu, path);
     check_values(value_cpu, value_gpu, g->vertex_num);
-/*
+
     gpu_sssp_vertex(g, edge_weight, SOURCE_VERTEX, value_gpu, path);
     check_values(value_cpu, value_gpu, g->vertex_num);
   	gpu_sssp_vertex_part(part, t, part_weight, SOURCE_VERTEX, value_gpu, path);
     check_values(value_cpu, value_gpu, g->vertex_num);
-*/
+
     release_table(t);
     for (int i = 0; i < 5; i++) release_graph(part[i]);
     free(part);

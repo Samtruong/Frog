@@ -251,7 +251,7 @@ static void gpu_pr_atomic(
 	// Copy Back Values
 	CudaMemcpyD2H(values, dev_value, vertex_num * sizeof(float));
 	printf("\t%.2f\t%.2f\tpagerank_edge_loop\tstep=%d\t\n",
-			timer_stop(), totalTime, step);
+			totalTime, timer_stop(), step);
 	/*
 	printf("\tvalues:");
 	for (int i = 0; i < 15; i++) printf(" %.6f", values[i]);
@@ -264,6 +264,9 @@ static void gpu_pr_navie(
 		const int * out_degree,
 		float  * const values)
 {
+/* Minh add correct total time here */
+	timer_start();
+
 	//printf("PageRank on Reverse Edge List without atomic function calls on GPU ... \n");
 	int vertex_num=t->vertex_num;
 	//Choose GPU Device
@@ -289,7 +292,6 @@ static void gpu_pr_navie(
 	CudaBufferZero(float, dev_add_value,vertex_num);
 	CudaBufferZero(int, dev_continue_flag, 1);
 	//printf("Done,Time=%.2f ms\n",timer_stop());
-
 	int bn = 256;
 	int tn = 128;
 
@@ -335,7 +337,7 @@ static void gpu_pr_navie(
 	// Copy Back Values
 	CudaMemcpyD2H(values, dev_value, vertex_num * sizeof(float));
 	printf("\t%.2f\t%.2f\tpagerank_vertex_loop\tstep=%d\t\n",
-			timer_stop(), totalTime, step);
+			totalTime, timer_stop(), step);
 	/*
 	printf("\tvalues:");
 	for (int i = 0; i < 15; i++) printf(" %.6f", values[i]);
